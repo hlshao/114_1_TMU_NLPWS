@@ -78,5 +78,3 @@ If you use this dataset or related baseline code, please cite the relevant works
 - Jin Wang et al. 2020. Tree-structured regional CNN-LSTM model for dimensional sentiment analysis. *IEEE/ACM TASLP*, 28, 581–591.  
 - Chuhan Wu et al. 2017. THU NGN at IJCNLP-2017 Task 2: Dimensional sentiment analysis for Chinese phrases with deep LSTM. In *Proc. of IJCNLP-17*, pp. 42-52.  
 - Suyang Zhu, Shoushan Li and Guodong Zhou. 2019. Adversarial attention modeling for multi-dimensional emotion regression. In *Proc. of ACL-19*, pp. 471–480.  
-
-要不要我幫您再補一個 **Getting Started** 區塊，給學生一個 Python 範例（例如用 pandas 讀取資料，再用 sklearn 訓練簡單的迴歸模型）？
