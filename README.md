@@ -73,8 +73,8 @@ pip install transformers accelerate peft datasets
 ```
 .
 ├── data/
-│   ├── train.csv
-│   └── test.csv          # not release yet
+│   ├── Train_Data.csv
+│   └── Test_Data.csv          # not release yet
 ├── src/
 │   └── baseline.py
 └── README.md
