@@ -1,7 +1,8 @@
-# ROCLING-SIGAI 2025 Shared Task Dataset
+# TMU Natural Language Processing and LLM Workshop Course (Lecturer: Dr. Hsuanlei Shao)
+# Credit form: ROCLING-SIGAI 2025 Shared Task Dataset
 
 ## Overview
-This repository provides data and baseline resources for the **ROCLING-SIGAI 2025 Shared Task on Dimensional Sentiment Analysis**.  
+This workshop provides data and baseline resources from the **ROCLING-SIGAI 2025 Shared Task on Dimensional Sentiment Analysis**, for education and training student NLP and LLM method.   
 The task focuses on predicting **sentiment intensity in Valence–Arousal dimensions** for Chinese text at both the **word** and **phrase** levels.
 
 The dataset is designed for research and educational purposes. In particular, it is used as **teaching material** in the course *Natural Language Processing and Large Language Models Workshop* at **Taipei Medical University (TMU)**. During classroom exercises, the training data remain the same, while the test set may be modified for evaluation purposes.
