@@ -212,7 +212,7 @@ Swap `Ridge` with `RandomForestRegressor` or `XGBRegressor` (for two heads: vale
 
   * Freeze backbone + train small regression head for quick baseline.
   * Try PEFT/LoRA for resource-efficient fine-tuning.
-  * Evaluate with Pearson + MSE; report both.
+  * Evaluate with MSE.
 
 ---
 
@@ -220,12 +220,9 @@ Swap `Ridge` with `RandomForestRegressor` or `XGBRegressor` (for two heads: vale
 
 ### Metrics
 
-We report **Pearson correlation** and **MSE** per dimension:
+We report **MSE** per dimension:
 
-* Higher Pearson = better linear agreement with gold scores
 * Lower MSE = better absolute error
-
-You may also report **Spearman’s ρ** as a robustness check.
 
 ### Reproducibility
 
