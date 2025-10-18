@@ -1,0 +1,58 @@
+import argparse             # 用於解析命令行參數 (例如，允許使用者在執行時傳入檔案路徑或參數)
+import pandas as pd         # 用於數據處理和分析，特別是處理表格型資料 (DataFrame)
+import numpy as np          # 用於處理高效能的多維陣列和數學運算
+from sklearn.model_selection import KFold           # 從 Scikit-learn 導入 K 摺交叉驗證工具
+from sklearn.feature_extraction.text import TfidfVectorizer # 導入 TF-IDF（詞頻-逆文檔頻率）文本特徵提取器
+from sklearn.linear_model import Ridge                      # 導入 Ridge (嶺) 回歸模型 (一種帶 L2 正則化的線性模型)
+from sklearn.pipeline import make_pipeline                  # 導入建立 Scikit-learn 流程線 (Pipeline) 的工具
+from sklearn.metrics import mean_squared_error              # 導入均方誤差 (MSE) 作為回歸任務的評估指標
+from scipy.stats import pearsonr                            # 從 SciPy 導入皮爾遜相關係數計算函數
+import random               # 導入 Python 的標準隨機數生成模組
+
+# ----------------------------------------------------------------------
+
+def set_seed(seed=42):
+    """
+    設定隨機種子，確保實驗結果的可重現性。
+    
+    Args:
+        seed (int): 要設定的種子值，預設為 42。
+    """
+    np.random.seed(seed)    # 設定 NumPy 的隨機種子
+    random.seed(seed)       # 設定 Python 標準函式庫 'random' 的隨機種子
+
+# ----------------------------------------------------------------------
+
+def pearson(y_true, y_pred):
+    """
+    計算預測值與真實值之間的皮爾遜相關係數 (Pearson Correlation Coefficient)。
+    此函數也作為客製化的評估指標。
+
+    Args:
+        y_true (np.array): 真實的目標值 (Ground Truth)。
+        y_pred (np.array): 模型預測值。
+
+    Returns:
+        float: 皮爾遜相關係數值；如果其中一個陣列的唯一值少於 2 個，則返回 0.0。
+    """
+    # 檢查真實值或預測值的唯一值數量是否少於 2。
+    # 皮爾遜相關係數要求至少有兩個不同的值才能計算統計相關性。
+    if len(np.unique(y_true)) < 2 or len(np.unique(y_pred)) < 2:
+        return 0.0
+    
+    # 使用 scipy.stats.pearsonr 函數計算皮爾遜相關係數。
+    # .statistic 屬性返回的是相關係數 r 值本身 (而不是 p 值)。
+    return pearsonr(y_true, y_pred).statistic
+
+# ----------------------------------------------------------------------
+
+# 註釋：如果這段程式碼是一個完整的腳本，通常接下來會包含以下結構：
+# if __name__ == '__main__':
+#     set_seed(42)
+#     # 1. 命令行參數解析 (使用 argparse)
+#     # 2. 數據加載 (使用 pandas)
+#     # 3. K 摺交叉驗證迴圈 (使用 KFold)
+#     # 4. 建立模型流程線 (使用 make_pipeline 和 Ridge)
+#     # 5. 模型訓練和預測
+#     # 6. 評估 (使用 mean_squared_error 和 pearson 函數)
+#     # 7. 結果輸出
