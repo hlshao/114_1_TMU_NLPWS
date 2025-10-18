@@ -1,0 +1,29 @@
+# 匯入必要套件
+from sklearn.pipeline import make_pipeline          # 用來建立機器學習的流水線（Pipeline）
+from sklearn.metrics import mean_squared_error       # 用來計算模型預測誤差（均方誤差 MSE）
+
+# 從資料框 df_tr 取出欄位並轉成適合模型輸入的格式
+text = df_tr["text"].astype(str).values   # 取出文字資料欄位，轉成字串格式陣列
+y_v = df_tr["valence"].values             # 取出情緒「效價」（valence）標籤
+y_a = df_tr["arousal"].values             # 取出情緒「喚醒度」（arousal）標籤
+
+# 建立針對 valence 的預測模型
+# 流水線包含兩個步驟：
+# 1. TfidfVectorizer：將文字轉換成 TF-IDF 特徵向量（1~2元詞組）
+#    - ngram_range=(1,2)：同時考慮單字和雙字詞
+#    - min_df=2：只保留至少在 2 篇文件中出現的詞，過低頻詞會被忽略
+#    - max_features=200000：最多保留 200,000 個特徵（避免維度太大）
+# 2. Ridge：以 Ridge Regression（L2 正則化的線性回歸）進行預測
+#    - alpha=2.0：正則化強度，越大代表對權重懲罰越強
+#    - random_state=42：設定隨機種子，確保結果可重現
+model_v = make_pipeline(
+    TfidfVectorizer(ngram_range=(1, 2), min_df=2, max_features=200000),
+    Ridge(alpha=2.0, random_state=42)
+)
+
+# 建立針對 arousal 的預測模型
+# 結構與 model_v 相同，但目標變數不同（預測喚醒度而非效價）
+model_a = make_pipeline(
+    TfidfVectorizer(ngram_range=(1, 2), min_df=2, max_features=200000),
+    Ridge(alpha=2.0, random_state=42)
+)
