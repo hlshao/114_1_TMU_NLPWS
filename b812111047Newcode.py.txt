@@ -1,0 +1,37 @@
+# 匯入必要的函式庫
+import argparse, pandas as pd, numpy as np
+from sklearn.model_selection import KFold             # 用於交叉驗證
+from sklearn.feature_extraction.text import TfidfVectorizer  # 將文字轉換為TF-IDF向量
+from sklearn.linear_model import Ridge                # 使用Ridge Regression作為模型
+from sklearn.pipeline import make_pipeline            # 建立前處理與模型的流水線
+from sklearn.metrics import mean_squared_error        # 計算模型預測誤差
+from scipy.stats import pearsonr                      # 計算皮爾森相關係數
+import random
+
+# 固定隨機種子，確保實驗可重現
+def set_seed(seed=42):
+    np.random.seed(seed)
+    random.seed(seed)
+
+# 自訂皮爾森相關係數計算函式
+def pearson(y_true, y_pred):
+    # 若真實值或預測值全相同（無變化），則無法計算相關性，直接回傳0
+    if len(np.unique(y_true)) < 2 or len(np.unique(y_pred)) < 2:
+        return 0.0
+    # 否則回傳皮爾森相關係數的統計值
+    return pearsonr(y_true, y_pred).statistic
+
+# 模型訓練與評估主函式
+def train_eval(train_path, dev_path=None, out_pred_path=None):
+    # 固定隨機種子以確保結果一致
+    set_seed(42)
+    
+    # 讀取訓練資料
+    df_tr = pd.read_csv(train_path)
+    
+    # 取出文字欄位，確保轉為字串格式
+    text = df_tr["text"].astype(str).values
+    
+    # 取出兩個回歸目標值：Valence（愉悅度）與 Arousal（喚醒度）
+    y_v = df_tr["valence"].values
+    y_a = df_tr["arousal"].values
